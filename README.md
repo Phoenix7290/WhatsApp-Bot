@@ -3,6 +3,7 @@
 This is a simple WhatsApp Bot built using whatsapp-web.js. The bot currently supports two commands:
 
 /everyone: Tags everyone in the group chat.
+
 /delete: Deletes the last message sent.
 
 ## Getting Started
@@ -38,6 +39,7 @@ Your WhatsApp account is now linked, and the bot is ready to use.
 ## Commands
 
 /everyone: Use this command in a group chat to tag all participants.
+
 /delete: Use this command to delete the last message sent by the bot.
 
 ## Future Plans

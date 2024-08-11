@@ -52,12 +52,10 @@ client.on("message_create", async (message) => {
         chat.clearState();
     }
 
-    // Check if the message is "/delete"
     if (message.body === "/delete") {
         const participants = await chat.participants;
         let partic = {};
 
-        // Check if the sender is an Admin
         for (const participant of participants) {
             if (participant.id._serialized === message._data.id.participant) {
                 partic = participant;
@@ -66,17 +64,13 @@ client.on("message_create", async (message) => {
         }
         if (!partic.isAdmin) return;
 
-        // Fetch the last 10 messages from the group chat
-        let messages = await chat.fetchMessages({ limit: 11 }); // 11 to include the delete command
+        let messages = await chat.fetchMessages({ limit: 10 });
 
-        // Sort messages by timestamp to ensure the order is correct
         messages.sort((a, b) => b.timestamp - a.timestamp);
 
-        // Filter out the /delete command itself
         const messagesToDelete = messages.filter(msg => msg.id._serialized !== message.id._serialized);
 
-        // Delete each message in order from the oldest to the most recent
-        for (const msg of messagesToDelete.slice(0, 10)) {
+        for (const msg of messagesToDelete) {
             try {
                 await msg.delete(true);
                 console.log(`Deleted message: ${msg.body}`);
